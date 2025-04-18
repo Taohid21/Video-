@@ -95,7 +95,7 @@
     <div id="player"></div>
 
     <div class="title-row">
-      <div class="video-title">Now Playing: Cricket Live</div>
+      <div class="video-title">Now Playing: IPL Live</div>
       <div class="live-badge">LIVE</div>
     </div>
 
@@ -104,7 +104,7 @@
     </div>
 
     <div class="buttons">
-      <button class="switch-btn" onclick="changeStream('https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8')">Channel 1</button>
+      <button class="switch-btn" onclick="changeStream('https://cdn.vaanam24.com/STARSPORTSTAMIL/index.m3u8')">Channel 1</button>
       <button class="switch-btn" onclick="changeStream('https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8')">Channel 2</button>
       <button class="switch-btn" onclick="changeStream('https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8')">Channel 3</button>
     </div>
@@ -113,7 +113,7 @@
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <script>
     let player = new Clappr.Player({
-      source: "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8", // Initial video
+      source: "https://cdn.vaanam24.com/STARSPORTSTAMIL/index.m3u8", // Initial video
       parentId: "#player",
       autoPlay: true,
       mute: true,
