@@ -18,20 +18,21 @@
     .container {
       max-width: 960px;
       margin: 0 auto;
-      padding: 20px 16px;
+      padding: 10px 16px 30px;
     }
 
     #player {
       width: 100%;
-      height: 540px;
-      border-radius: 0;
+      aspect-ratio: 16 / 9;
+      border-radius: 1px;
+      overflow: hidden;
     }
 
     .title-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 15px;
+      margin-top: 18px;
     }
 
     .video-title {
@@ -63,15 +64,15 @@
     .buttons {
       margin-top: 25px;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
     .switch-btn {
       padding: 10px 18px;
-      background: #1f1f1f;
+      background: #1a1a1a;
       color: white;
-      border: 2px solid #444;
+      border: 2px solid #333;
       border-radius: 8px;
       font-size: 15px;
       cursor: pointer;
@@ -84,8 +85,8 @@
     }
 
     @media (max-width: 600px) {
-      #player { height: 240px; }
       .video-title { font-size: 18px; }
+      .switch-btn { font-size: 14px; padding: 8px 14px; }
     }
   </style>
 </head>
@@ -95,7 +96,7 @@
     <div id="player"></div>
 
     <div class="title-row">
-      <div class="video-title">Now Playing: IPL Live</div>
+      <div class="video-title">Now Playing: Cricket Live</div>
       <div class="live-badge">LIVE</div>
     </div>
 
@@ -104,16 +105,16 @@
     </div>
 
     <div class="buttons">
-      <button class="switch-btn" onclick="changeStream('https://cdn.vaanam24.com/STARSPORTSTAMIL/index.m3u8')">Channel 1</button>
-      <button class="switch-btn" onclick="changeStream('https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8')">Channel 2</button>
-      <button class="switch-btn" onclick="changeStream('https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8')">Channel 3</button>
+      <button class="switch-btn" onclick="changeStream('https://funn-g1163.huibo.tv/DGI/H2102/chunks.m3u8?p=49&cf=1744984809&d=&ip=60.109.86.40&e=1794985409&h=1bd779f6c79b0f4909848dd023aff83d')">Server 1</button>
+      <button class="switch-btn" onclick="changeStream('https://news.bajimath.com/Candy_Live/vstream.m3u8?id=e666b0d2a3ec&e=.m3u8')">Server 2</button>
+      <button class="switch-btn" onclick="changeStream('https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8')">Server 3</button>
     </div>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
   <script>
     let player = new Clappr.Player({
-      source: "https://cdn.vaanam24.com/STARSPORTSTAMIL/index.m3u8", // Initial video
+      source: "https://funn-g1163.huibo.tv/DGI/H2102/chunks.m3u8?p=49&cf=1744984809&d=&ip=60.109.86.40&e=1794985409&h=1bd779f6c79b0f4909848dd023aff83d", // Server 1 (default)
       parentId: "#player",
       autoPlay: true,
       mute: true,
@@ -129,4 +130,4 @@
   </script>
 
 </body>
-</html>
+  </html>
