@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: #fff;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 10px 16px 30px;
+    }
+
+    #player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 18px;
+    }
+
+    .video-title {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .live-badge {
+      background: red;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 25px;
+      font-weight: 700;
+      animation: blink 1s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { opacity: 1; }
+      to { opacity: 0.5; }
+    }
+
+    .description {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #ccc;
+      line-height: 1.6;
+    }
+
+    .buttons {
+      margin-top: 25px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .switch-btn {
+      padding: 10px 18px;
+      background: #1a1a1a;
+      color: white;
+      border: 2px solid #333;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .switch-btn:hover {
+      background: #333;
+      border-color: #666;
+    }
+
+    @media (max-width: 600px) {
+      .video-title { font-size: 18px; }
+      .switch-btn { font-size: 14px; padding: 8px 14px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div id="player"></div>
+
+    <div class="title-row">
+      <div class="video-title">Now Playing: Ban Vs Zim Live</div>
+      <div class="live-badge">LIVE</div>
+    </div>
+
+    <div class="description">
+      Watch high-quality live cricket stream. Enjoy the excitement of every match moment with smooth playback and modern design. Stay tuned!
+    </div>
+
+    <div class="buttons">
+      <button class="switch-btn" onclick="changeStream('https://vsd140.okcdn.ru/hls/8068508027476.m3u8/sig/2a3u2XAz5vk/expires/1745208043773/srcIp/103.145.50.159/urls/45.136.22.62/clientType/1/srcAg/CHROME_ANDROID/mid/9436339052116/8068508027476_high/index.m3u8')">Server 1</button>
+      <button class="switch-btn" onclick="changeStream('https://d1e7rcqq4o2ma.cloudfront.net/bpk-tv/1709/output/index.m3u8')">Server 2</button>
+      <button class="switch-btn" onclick="changeStream('https://d1e7rcqq4o2ma.cloudfront.net/bpk-tv/1709/output/index.m3u8')">Server 3</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+  <script>
+    let player = new Clappr.Player({
+      source: "https://vsd140.okcdn.ru/hls/8068508027476.m3u8/sig/2a3u2XAz5vk/expires/1745208043773/srcIp/103.145.50.159/urls/45.136.22.62/clientType/1/srcAg/CHROME_ANDROID/mid/9436339052116/8068508027476_high/index.m3u8", // Server 1 (default)
+      parentId: "#player",
+      autoPlay: true,
+      mute: true,
+      width: "100%",
+      height: "100%",
+      poster: "https://via.placeholder.com/960x540.png?text=Loading+Video"
+    });
+
+    function changeStream(url) {
+      player.load(url);
+      player.play();
+    }
+  </script>
+
+</body>
+  </html>
