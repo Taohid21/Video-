@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Somoy TV</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap" rel="stylesheet"/>
+
+  <style>
+    body {
+      background-color: #000;
+      font-family: 'Poppins', sans-serif;
+    }
+    video::-webkit-media-controls {
+      display: none !important;
+    }
+    video::-moz-media-controls {
+      display: none !important;
+    }
+    video {
+      outline: none;
+    }
+    .control-btn {
+      @apply w-10 h-10 flex items-center justify-center bg-gray-800 hover:bg-gray-700 transition-all rounded-full text-white text-lg shadow;
+    }
+  </style>
+</head>
+<body class="flex flex-col items-center justify-start min-h-screen p-4 space-y-4">
+
+  <!-- Top bar -->
+  <div class="flex items-center space-x-3 bg-gray-900 bg-opacity-70 rounded-xl px-4 py-3 max-w-md w-full">
+    <img src="https://storage.googleapis.com/a1aa/image/b3cd3c00-e78f-41b6-d85a-43e4c673872d.jpg" class="w-10 h-10 rounded" alt="Somoy TV logo"/>
+    <h1 class="text-white text-xl font-semibold leading-none">BTV</h1>
+    <button class="ml-auto flex items-center space-x-2 bg-red-700 hover:bg-red-800 text-white text-sm font-medium rounded-full px-4 py-1">
+      <i class="fas fa-layer-group"></i>
+      <span>BANGLADESHI</span>
+    </button>
+  </div>
+
+  <!-- Video Player -->
+  <div class="max-w-md w-full">
+    <div class="w-full aspect-video rounded-lg overflow-hidden">
+      <video id="video" autoplay muted playsinline class="w-full h-full object-cover"></video>
+    </div>
+  </div>
+
+  <!-- Bottom controls -->
+  <div class="max-w-md w-full flex items-center justify-between text-white text-sm px-2">
+    <div class="flex items-center space-x-3">
+      <button class="control-btn" onclick="toggleMute()">
+        <i id="volumeIcon" class="fas fa-volume-mute"></i>
+      </button>
+      <span class="font-semibold text-red-500 animate-pulse">LIVE</span>
+    </div>
+    <div class="flex items-center space-x-3">
+      <button class="control-btn" onclick="shareStream()"><i class="fas fa-share-alt"></i></button>
+      <button class="control-btn" onclick="togglePiP()"><i class="fas fa-clone"></i></button>
+      <button class="control-btn" onclick="toggleFullscreen()"><i class="fas fa-expand"></i></button>
+    </div>
+  </div>
+
+  <!-- Video Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const video = document.getElementById('video');
+      const videoSrc = 'https://d1e7rcqq4o2ma.cloudfront.net/bpk-tv/1709/output/master.m3u8';
+
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoSrc);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+          video.play();
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = videoSrc;
+        video.addEventListener('loadedmetadata', function () {
+          video.play();
+        });
+      } else {
+        alert('আপনার ব্রাউজার এই ভিডিও ফরম্যাটটি সাপোর্ট করে না। অনুগ্রহ করে Chrome অথবা Safari ব্যবহার করুন।');
+      }
+    });
+
+    function toggleMute() {
+      const video = document.getElementById('video');
+      const icon = document.getElementById('volumeIcon');
+
+      video.muted = !video.muted;
+      if (video.muted) {
+        icon.classList.remove('fa-volume-up');
+        icon.classList.add('fa-volume-mute');
+      } else {
+        icon.classList.remove('fa-volume-mute');
+        icon.classList.add('fa-volume-up');
+      }
+    }
+
+    function toggleFullscreen() {
+      const video = document.getElementById('video');
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        video.requestFullscreen();
+      }
+    }
+
+    function togglePiP() {
+      const video = document.getElementById('video');
+      if (document.pictureInPictureElement) {
+        document.exitPictureInPicture();
+      } else if (document.pictureInPictureEnabled) {
+        video.requestPictureInPicture();
+      }
+    }
+
+    function shareStream() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'BTV',
+          url: window.location.href
+        }).catch(err => console.error(err));
+      } else {
+        alert("এই ব্রাউজারে শেয়ার অপশনটি সাপোর্ট করে না।");
+      }
+    }
+  </script>
+</body>
+</html>
